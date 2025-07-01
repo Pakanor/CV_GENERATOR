@@ -25,12 +25,20 @@ async def fetch_github_data(username: str) -> GitHubCVData:
 async def generate_cv(request: CVRequest):
     client = GitHubClient()
     user = await client.get_user(request.github_username)
-
     if not user:
         raise HTTPException(status_code=404, detail="GitHub user not found")
+
     repos = await client.get_repos(request.github_username)
     language_stats = await client.get_language_stats(request.github_username)
-    cv_data = GitHubCVData(user, repos, language_stats)
+
+    cv_data = GitHubCVData(
+        user=user,
+        repos=repos,
+        language_stats=language_stats,
+        education=request.education or [],
+        work_experience=request.work_experience or [],
+        certificates=request.certificates or []
+    )
 
     from prompt_builder import build_prompt
     prompt = build_prompt(cv_data, request.preferences.dict()

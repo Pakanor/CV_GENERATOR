@@ -2,7 +2,6 @@ import cohere
 import os
 
 API_KEY = os.getenv("CO_API_KEY")
-print("Cohere API Key:", API_KEY)
 
 co = cohere.ClientV2(api_key=API_KEY)
 

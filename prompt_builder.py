@@ -11,6 +11,9 @@ def build_prompt(cv_data, preferences):
         user=cv_data.user,
         repos=cv_data.repos,
         language_stats=cv_data.language_stats,
+        education=cv_data.education,
+        work_experience=cv_data.work_experience,
+        certificates=cv_data.certificates,
         preferences=preferences,
         language=preferences.get("language", "polskim")
     )
