@@ -1,0 +1,28 @@
+Wygeneruj profesjonalne CV w języku {{ language }} na podstawie danych z GitHuba.
+
+Imię i nazwisko: {{ user.full_name }}
+Username: {{ user.username }}
+Bio: {{ user.bio }}
+Lokalizacja: {{ user.location }}
+Blog: {{ user.blog_url }}
+Repozytoria publiczne: {{ user.public_repos }}
+Konto utworzone: {{ user.created_at }}
+
+Projekty:
+{% for repo in repos %}
+{{ loop.index }}. {{ repo.name }}
+   Opis: {{ repo.description }}
+   Język: {{ repo.language }}
+   Gwiazdki: {{ repo.stars }}
+   Forki: {{ repo.forks }}
+   Data utworzenia: {{ repo.created_at }}
+   Fork: {{ "Tak" if repo.is_fork else "Nie" }}
+
+{% endfor %}
+
+Statystyki języków:
+{% for lang in language_stats %}
+- {{ lang.language }}: {{ lang.percentage }}%
+{% endfor %}
+
+{{ preferences.instructions }}
